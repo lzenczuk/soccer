@@ -26,13 +26,12 @@ class pitch {
     pitch_array pa;
 
     move_result move_ball_up();
+    move_result move_ball_down();
 
 public:
     pitch();
     ball get_ball();
     move_result move_ball(uint8_t dir);
-
-    move_result move_ball_down();
 };
 
 #endif //SOCCER_PITCH_H

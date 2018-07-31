@@ -76,6 +76,14 @@ move_result pitch::move_ball_up() {
     uint8_t cell = pa.get_cell(ball_x, ball_y);
 
     if (cell & directions_bits::up) {
+        // Move in this direction blocked
+        return move_result{
+                {ball_x, ball_y},
+                false,
+                false,
+                true
+        };
+    } else {
         // Move in this direction available
         pa.block_direction(ball_x, ball_y, directions::up);
         ball_y = ball_y - 1;
@@ -86,14 +94,6 @@ move_result pitch::move_ball_up() {
                 {ball_x, ball_y},
                 false,
                 true,
-                true
-        };
-    } else {
-        // Move in this direction blocked
-        return move_result{
-                {ball_x, ball_y},
-                false,
-                false,
                 true
         };
     }
@@ -131,6 +131,14 @@ move_result pitch::move_ball_down() {
     uint8_t cell = pa.get_cell(ball_x, cell_y);
 
     if (cell & directions_bits::up) {
+        // Move in this direction blocked
+        return move_result{
+                {ball_x, ball_y},
+                false,
+                false,
+                true
+        };
+    } else {
         // Move in this direction available
         pa.block_direction(ball_x, cell_y, directions::up);
         ball_y = ball_y + 1;
@@ -139,14 +147,6 @@ move_result pitch::move_ball_down() {
                 {ball_x, ball_y},
                 false,
                 true,
-                true
-        };
-    } else {
-        // Move in this direction blocked
-        return move_result{
-                {ball_x, ball_y},
-                false,
-                false,
                 true
         };
     }

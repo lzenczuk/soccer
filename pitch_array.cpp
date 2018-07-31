@@ -44,14 +44,6 @@ void pitch_array::block_direction(uint8_t x, uint8_t y, uint8_t direction) {
         value = value << 4;
     }
 
-    // negate value (00010000 -> 11101111) to create mask
-    value = ~value;
-
-    // set unmasked bit to 0
-    // value:       00010000
-    // mask:        11101111
-    // cell before: 10100110
-    // cell after:  10110110
-    cells[real_cel_index] = cells[real_cel_index] & value;
+    cells[real_cel_index] = cells[real_cel_index] | value;
 }
 
