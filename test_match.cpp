@@ -44,7 +44,7 @@ int main() {
     srand(time(NULL));
     pitch p;
 
-    for (int x = 0; x < 1000000; x++) {
+    for (int x = 0; x < 10000; x++) {
         p = pitch();
 
         while (true) {
@@ -57,8 +57,8 @@ int main() {
             print_move_result(m);
 
             if (m.goal) {
-                wins[active_player_index] = wins[active_player_index]+1;
-                std::cout << "Played " << int(players[active_player_index]) << " scored" << std::endl;
+                wins[m.player] = wins[m.player]+1;
+                std::cout << "Player " << int(players[m.player]) << " scored" << std::endl;
                 std::cout << _visualize_pitch(p) << std::endl;
                 break;
             }

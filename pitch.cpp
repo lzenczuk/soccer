@@ -35,6 +35,7 @@ move_result not_allowed_move(ball b){
     return {
         b,
         false,
+        static_cast<uint8_t>(-1),
         false,
         true,
         false
@@ -45,16 +46,18 @@ move_result success_move(ball b, bool next_move_possible, bool cell_visited){
     return {
             b,
             false,
+            static_cast<uint8_t>(-1),
             true,
             next_move_possible,
             cell_visited
     };
 }
 
-move_result goal(ball b){
+move_result goal(ball b, uint8_t player){
     return {
             b,
             true,
+            player,
             true,
             false,
             false
@@ -154,7 +157,7 @@ move_result pitch::move_ball_up() {
 
     // Top row and goal
     if (ball_y == 0 && ball_x == 4) {
-        return goal({ball_x, ball_y});
+        return goal({ball_x, ball_y}, 0);
     }
 
     // Top row but not goal
@@ -188,7 +191,7 @@ move_result pitch::move_ball_up_right() {
 
     // Top row and goal
     if (ball_y == 0 && (ball_x == 3 || ball_x == 4)) {
-        return goal({ball_x, ball_y});
+        return goal({ball_x, ball_y}, 0);
     }
 
     // Top row - block
@@ -254,7 +257,7 @@ move_result pitch::move_ball_down_right() {
 
     // Top row and goal
     if (ball_y == 10 && (ball_x == 3 || ball_x == 4)) {
-        return goal({ball_x, ball_y});
+        return goal({ball_x, ball_y}, 1);
     }
 
     // Bottom row
@@ -289,7 +292,7 @@ move_result pitch::move_ball_down() {
 
     // Bottom row and goal
     if (ball_y == 10 && ball_x == 4) {
-        return goal({ball_x, ball_y});
+        return goal({ball_x, ball_y}, 1);
     }
 
     // Bottom row
@@ -330,7 +333,7 @@ move_result pitch::move_ball_down_left() {
 
     // Top row and goal
     if (ball_y == 10 && (ball_x == 4 || ball_x == 5)) {
-        return goal({ball_x, ball_y});
+        return goal({ball_x, ball_y}, 1);
     }
 
     // First column
@@ -403,7 +406,7 @@ move_result pitch::move_ball_up_left() {
 
     // Top row and goal
     if (ball_y == 0 && (ball_x == 4 || ball_x == 5)) {
-        return goal({ball_x, ball_y});
+        return goal({ball_x, ball_y}, 0);
     }
 
     // Top row

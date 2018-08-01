@@ -16,6 +16,7 @@ struct ball {
 struct move_result{
     ball b;
     bool goal;
+    uint8_t player;
     bool success;
     bool next_move_possible;
     bool cell_visited;
