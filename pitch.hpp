@@ -39,7 +39,9 @@ public:
     ball get_ball();
     move_result move_ball(uint8_t dir);
 
-    friend std::string visualize_pitch(pitch p);
+    // Functions for test purpose
+    friend std::string _visualize_pitch(pitch p);
+    friend void _move_ball(pitch& p, uint8_t x, uint8_t y);
 };
 
 #endif //SOCCER_PITCH_H

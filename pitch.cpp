@@ -31,7 +31,12 @@ struct directions_bits {
 };
  */
 
-std::string visualize_pitch(pitch p){
+void _move_ball(pitch &p, uint8_t x, uint8_t y){
+    p.ball_x = x;
+    p.ball_y = y;
+}
+
+std::string _visualize_pitch(pitch p){
 
     char v[] = {
             ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','\n',
@@ -124,22 +129,22 @@ move_result pitch::move_ball(uint8_t dir) {
 
 move_result pitch::move_ball_up() {
 
-    // Top row but not goal
-    if (ball_y == 0 && ball_x != 4) {
-        return move_result{
-                {ball_x, ball_y},
-                false,
-                false,
-                true
-        };
-    }
-
     // Top row and goal
     if (ball_y == 0 && ball_x == 4) {
         return move_result{
                 {ball_x, ball_y},
                 true,
                 true,
+                true
+        };
+    }
+
+    // Top row but not goal
+    if (ball_y == 0){
+        return move_result{
+                {ball_x, ball_y},
+                false,
+                false,
                 true
         };
     }
@@ -181,18 +186,8 @@ move_result pitch::move_ball_up() {
 
 move_result pitch::move_ball_up_right() {
 
-    // Top row but not goal
-    if (ball_y == 0 && ball_x != 3) {
-        return move_result{
-                {ball_x, ball_y},
-                false,
-                false,
-                true
-        };
-    }
-
     // Top row and goal
-    if (ball_y == 0 && ball_x == 3) {
+    if (ball_y == 0 && (ball_x == 3 || ball_x == 4)) {
         return move_result{
                 {ball_x, ball_y},
                 true,
@@ -201,7 +196,17 @@ move_result pitch::move_ball_up_right() {
         };
     }
 
-    // Last column
+    // Top row - block
+    if (ball_y == 0) {
+        return move_result{
+                {ball_x, ball_y},
+                false,
+                false,
+                true
+        };
+    }
+
+    // Last column - block
     if (ball_x == 8) {
         return move_result{
                 {ball_x, ball_y},
@@ -249,6 +254,16 @@ move_result pitch::move_ball_right() {
         };
     }
 
+    // Top or bottom row allow right from only two cells
+    if((ball_y==0 || ball_y==10) && (ball_x!=3 && ball_x!=4)){
+        return move_result{
+                {ball_x, ball_y},
+                false,
+                false,
+                true
+        };
+    }
+
     // Not last column
     uint8_t cell = pa.get_cell(ball_x, ball_y);
 
@@ -275,22 +290,23 @@ move_result pitch::move_ball_right() {
 }
 
 move_result pitch::move_ball_down_right() {
-    // Bottom row but not goal
-    if (ball_y == 10 && ball_x != 3) {
+
+    // Top row and goal
+    if (ball_y == 10 && (ball_x == 3 || ball_x == 4)) {
         return move_result{
                 {ball_x, ball_y},
-                false,
-                false,
+                true,
+                true,
                 true
         };
     }
 
-    // Top row and goal
-    if (ball_y == 10 && ball_x == 3) {
+    // Bottom row
+    if (ball_y == 10) {
         return move_result{
                 {ball_x, ball_y},
-                true,
-                true,
+                false,
+                false,
                 true
         };
     }
@@ -305,7 +321,6 @@ move_result pitch::move_ball_down_right() {
         };
     }
 
-    // Not bottom row
     uint8_t cell = pa.get_cell(ball_x, ball_y);
 
     if (cell & directions_bits::down_right) {
@@ -333,22 +348,22 @@ move_result pitch::move_ball_down_right() {
 
 move_result pitch::move_ball_down() {
 
-    // Bottom row but not goal
-    if (ball_y == 10 && ball_x != 4) {
-        return move_result{
-                {ball_x, ball_y},
-                false,
-                false,
-                true
-        };
-    }
-
     // Bottom row and goal
     if (ball_y == 10 && ball_x == 4) {
         return move_result{
                 {ball_x, ball_y},
                 true,
                 true,
+                true
+        };
+    }
+
+    // Bottom row
+    if (ball_y == 10) {
+        return move_result{
+                {ball_x, ball_y},
+                false,
+                false,
                 true
         };
     }
@@ -395,18 +410,9 @@ move_result pitch::move_ball_down() {
 }
 
 move_result pitch::move_ball_down_left() {
-    // Bottom row but not goal
-    if (ball_y == 10 && ball_x != 5) {
-        return move_result{
-                {ball_x, ball_y},
-                false,
-                false,
-                true
-        };
-    }
 
     // Top row and goal
-    if (ball_y == 10 && ball_x == 5) {
+    if (ball_y == 10 && (ball_x == 4 || ball_x == 5)) {
         return move_result{
                 {ball_x, ball_y},
                 true,
@@ -417,6 +423,16 @@ move_result pitch::move_ball_down_left() {
 
     // First column
     if (ball_x == 0) {
+        return move_result{
+                {ball_x, ball_y},
+                false,
+                false,
+                true
+        };
+    }
+
+    // Bottom row
+    if (ball_y == 10){
         return move_result{
                 {ball_x, ball_y},
                 false,
@@ -460,8 +476,18 @@ move_result pitch::move_ball_down_left() {
 
 move_result pitch::move_ball_left() {
 
+    // Top or bottom row allow left from only two cells
+    if((ball_y==0 || ball_y==10) && (ball_x!=4 && ball_x!=5)){
+        return move_result{
+                {ball_x, ball_y},
+                false,
+                false,
+                true
+        };
+    }
+
     // Last column
-    if (ball_x <= 0) {
+    if (ball_x == 0) {
         return move_result{
                 {ball_x, ball_y},
                 false,
@@ -498,22 +524,22 @@ move_result pitch::move_ball_left() {
 
 move_result pitch::move_ball_up_left() {
 
-    // Top row but not goal
-    if (ball_y == 0 && ball_x != 5) {
+    // Top row and goal
+    if (ball_y == 0 && (ball_x == 4 || ball_x == 5)) {
         return move_result{
                 {ball_x, ball_y},
-                false,
-                false,
+                true,
+                true,
                 true
         };
     }
 
-    // Top row and goal
-    if (ball_y == 0 && ball_x == 5) {
+    // Top row
+    if (ball_y == 0) {
         return move_result{
                 {ball_x, ball_y},
-                true,
-                true,
+                false,
+                false,
                 true
         };
     }

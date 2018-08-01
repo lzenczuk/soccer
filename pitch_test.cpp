@@ -399,49 +399,49 @@ void test_visualize() {
     pitch p = pitch();
 
     p.move_ball(directions::up);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::down_left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::down_right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::up_left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::up);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::up_left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::up_left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::up_left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::up_left);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::up_right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
     p.move_ball(directions::up_right);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
 }
 
 void test_right_edge() {
@@ -463,7 +463,7 @@ void test_right_edge() {
     assert(m.b.y == 5);
     assert(!m.goal);
     assert(!m.success);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
 }
 
 void test_right_edge_blocking_up_and_down() {
@@ -513,7 +513,7 @@ void test_left_edge() {
     assert(m.b.y == 5);
     assert(!m.goal);
     assert(!m.success);
-    std::cout << visualize_pitch(p) << std::endl;
+    std::cout << _visualize_pitch(p) << std::endl;
 }
 
 void test_left_edge_blocking_up_and_down() {
@@ -542,6 +542,216 @@ void test_left_edge_blocking_up_and_down() {
     assert(m.b.y == 5);
     assert(!m.goal);
     assert(!m.success);
+}
+
+void test_top_end_bottom_right_move(){
+    pitch p = pitch();
+
+    _move_ball(p, 2, 0);
+    auto m = p.move_ball(directions::right);
+    assert(m.b.x == 2);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(!m.success);
+
+    _move_ball(p, 3, 0);
+    m = p.move_ball(directions::right);
+    assert(m.b.x == 4);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::right);
+    assert(m.b.x == 5);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::right);
+    assert(m.b.x == 5);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(!m.success);
+
+    _move_ball(p, 2, 10);
+    m = p.move_ball(directions::right);
+    assert(m.b.x == 2);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(!m.success);
+
+    _move_ball(p, 3, 10);
+    m = p.move_ball(directions::right);
+    assert(m.b.x == 4);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::right);
+    assert(m.b.x == 5);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::right);
+    assert(m.b.x == 5);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(!m.success);
+}
+
+void test_top_end_bottom_left_move(){
+    pitch p = pitch();
+
+    _move_ball(p, 6, 0);
+    auto m = p.move_ball(directions::left);
+    assert(m.b.x == 6);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(!m.success);
+
+    _move_ball(p, 5, 0);
+    m = p.move_ball(directions::left);
+    assert(m.b.x == 4);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::left);
+    assert(m.b.x == 3);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::left);
+    assert(m.b.x == 3);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(!m.success);
+
+    _move_ball(p, 6, 10);
+    m = p.move_ball(directions::left);
+    assert(m.b.x == 6);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(!m.success);
+
+    _move_ball(p, 5, 10);
+    m = p.move_ball(directions::left);
+    assert(m.b.x == 4);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::left);
+    assert(m.b.x == 3);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::left);
+    assert(m.b.x == 3);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(!m.success);
+}
+
+void test_top_goal(){
+    pitch p = pitch();
+
+    _move_ball(p, 3, 0);
+    auto m = p.move_ball(directions::up);
+    assert(m.b.x == 3);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(!m.success);
+
+    m = p.move_ball(directions::up_right);
+    assert(m.b.x == 3);
+    assert(m.b.y == 0);
+    assert(m.goal);
+    assert(m.success);
+
+    _move_ball(p, 4, 0);
+    m = p.move_ball(directions::up_left);
+    assert(m.b.x == 4);
+    assert(m.b.y == 0);
+    assert(m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::up);
+    assert(m.b.x == 4);
+    assert(m.b.y == 0);
+    assert(m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::up_right);
+    assert(m.b.x == 4);
+    assert(m.b.y == 0);
+    assert(m.goal);
+    assert(m.success);
+
+    _move_ball(p, 5, 0);
+    m = p.move_ball(directions::up);
+    assert(m.b.x == 5);
+    assert(m.b.y == 0);
+    assert(!m.goal);
+    assert(!m.success);
+
+    m = p.move_ball(directions::up_left);
+    assert(m.b.x == 5);
+    assert(m.b.y == 0);
+    assert(m.goal);
+    assert(m.success);
+}
+
+void test_bottom_goal(){
+    pitch p = pitch();
+
+    _move_ball(p, 3, 10);
+    auto m = p.move_ball(directions::down);
+    assert(m.b.x == 3);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(!m.success);
+
+    m = p.move_ball(directions::down_right);
+    assert(m.b.x == 3);
+    assert(m.b.y == 10);
+    assert(m.goal);
+    assert(m.success);
+
+    _move_ball(p, 4, 10);
+    m = p.move_ball(directions::down_left);
+    assert(m.b.x == 4);
+    assert(m.b.y == 10);
+    assert(m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::down);
+    assert(m.b.x == 4);
+    assert(m.b.y == 10);
+    assert(m.goal);
+    assert(m.success);
+
+    m = p.move_ball(directions::down_right);
+    assert(m.b.x == 4);
+    assert(m.b.y == 10);
+    assert(m.goal);
+    assert(m.success);
+
+    _move_ball(p, 5, 10);
+    m = p.move_ball(directions::down);
+    assert(m.b.x == 5);
+    assert(m.b.y == 10);
+    assert(!m.goal);
+    assert(!m.success);
+
+    m = p.move_ball(directions::down_left);
+    assert(m.b.x == 5);
+    assert(m.b.y == 10);
+    assert(m.goal);
+    assert(m.success);
 }
 
 int main() {
@@ -575,4 +785,8 @@ int main() {
     test_right_edge_blocking_up_and_down();
     test_left_edge();
     test_left_edge_blocking_up_and_down();
+    test_top_end_bottom_left_move();
+    test_top_end_bottom_right_move();
+    test_top_goal();
+    test_bottom_goal();
 }
