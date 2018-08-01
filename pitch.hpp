@@ -17,7 +17,13 @@ struct move_result{
     ball b;
     bool goal;
     bool success;
-    bool cell_empty;
+    bool next_move_possible;
+    bool cell_visited;
+};
+
+struct cell_status{
+    bool next_move_by_player;
+    bool next_move_possible;
 };
 
 class pitch {
@@ -33,6 +39,9 @@ class pitch {
     move_result move_ball_down_left();
     move_result move_ball_left();
     move_result move_ball_up_left();
+
+    bool next_move_possible();
+    bool is_cell_visited(uint8_t x, uint8_t y);
 
 public:
     pitch();

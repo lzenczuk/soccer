@@ -9,7 +9,7 @@
 
 void print_move_result(move_result mr) {
     std::cout << "move_result: { ball: {" << (unsigned int) mr.b.x << ", " << (unsigned int) mr.b.y << "}, goal: "
-              << mr.goal << ", success: " << mr.success << ", cell empty: " << mr.cell_empty << "}" << std::endl;
+              << mr.goal << ", success: " << mr.success << ", cell empty: " << mr.cell_visited << "}" << std::endl;
 }
 
 void test_get_ball() {
