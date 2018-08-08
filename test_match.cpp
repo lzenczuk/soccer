@@ -5,6 +5,8 @@
 #include <iostream>
 #include "pitch.hpp"
 
+void test_experimental_game();
+
 uint8_t get_move() {
     return static_cast<uint8_t>(rand() % 8);
 }
@@ -35,7 +37,7 @@ void print_move_result(move_result mr) {
               << mr.goal << ", success: " << mr.success << ", cell empty: " << mr.cell_visited << "}" << std::endl;
 }
 
-int main() {
+void test_experimental_game() {
     uint8_t players[] = {31, 144};
     int active_player_index = 0;
 
@@ -85,10 +87,14 @@ int main() {
             std::cout << " ----- " << std::endl;
         }
 
-        std::cout << "Game: "<< x << " ----- END " << std::endl;
+        std::cout << "Game: " << x << " ----- END " << std::endl;
     }
 
-    std::cout << "Result. player 0: "<< wins[0] << "; player 1: " << wins[1] << "; draw: " << wins[2] << std::endl;
+    std::cout << "Result. player 0: " << wins[0] << "; player 1: " << wins[1] << "; draw: " << wins[2] << std::endl;
+}
+
+int main() {
+    test_experimental_game();
 
     return 0;
 }
